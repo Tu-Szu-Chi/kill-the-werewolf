@@ -1,28 +1,26 @@
-<template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+<template lang="pug">
+  .container
+    input(@input="e => changeTitle(e.target.value)" type="text")
+    p.bg-green-400 {{ state.title }}
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script lang="ts">
+import { defineComponent, reactive } from '@vue/composition-api';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+export default defineComponent({
+  setup () {
+    const state = reactive({
+      title: ''
+    })
+    function changeTitle (title: string) {
+      state.title = title;
+    }
+
+    return {
+      state,
+      changeTitle
+    }
   }
-}
-</script>
+});
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+</script>
